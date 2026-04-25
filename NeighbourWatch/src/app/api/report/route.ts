@@ -45,15 +45,21 @@ export async function POST(req: NextRequest) {
     const { data: report, error: dbError } = await supabase
       .from('reports')
       .insert({
-        photo_url: null, // Would upload to storage in real flow
+        photo_url: null, 
         gps_location: `POINT(${gps.lng} ${gps.lat})`,
         description: aiResults.english_translation,
         issue_type: aiResults.issue_type,
+        confidence: aiResults.confidence,
         severity_score: aiResults.severity_score,
         severity_label: aiResults.severity_label,
+        escalate_immediately: aiResults.escalate_immediately,
+        english_translation: aiResults.english_translation,
+        key_complaint: aiResults.key_complaint,
         cluster_size: clusterSize,
         pattern_type: patternType,
-        department: aiResults.primary_department,
+        primary_department: aiResults.primary_department,
+        officer_designation: aiResults.officer_designation,
+        escalate_to_collector: aiResults.escalate_to_collector,
         rti_letter: aiResults.rti_letter,
         status: 'pending'
       })

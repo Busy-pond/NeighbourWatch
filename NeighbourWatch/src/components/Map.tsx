@@ -19,12 +19,17 @@ import 'leaflet.heat';
 
 export default function Map() {
   const [reports, setReports] = useState<any[]>([]);
+  const [center, setCenter] = useState<[number, number]>([25.5941, 85.1376]); // Default: Patna
   const supabase = createClient();
 
   useEffect(() => {
     async function fetchMapData() {
       const { data } = await supabase.rpc('get_map_reports');
-      if (data) setReports(data);
+      if (data && data.length > 0) {
+        setReports(data);
+        // Center on the most recent report
+        setCenter([data[0].lat, data[0].lng]);
+      }
     }
     fetchMapData();
 
@@ -37,7 +42,8 @@ export default function Map() {
 
   return (
     <MapContainer 
-      center={[25.5941, 85.1376] as any} 
+      key={`${center[0]}-${center[1]}`} // Force re-render when center changes
+      center={center} 
       zoom={13} 
       className="h-full w-screen"
       zoomControl={false}

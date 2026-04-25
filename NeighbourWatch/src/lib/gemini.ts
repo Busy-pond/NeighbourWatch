@@ -10,7 +10,7 @@ const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 async function callGemini(prompt: string, imageBase64: string | null = null) {
   if (keys.length === 0) throw new Error("No Gemini keys configured in .env.local");
 
-  const models = ['gemini-2.0-flash-lite', 'gemini-2.0-flash'];
+  const models = ['gemini-2.5-flash-lite', 'gemini-2.5-flash', 'gemini-2.0-flash-lite', 'gemini-2.0-flash'];
   
   for (const key of keys) {
     for (const modelString of models) {
