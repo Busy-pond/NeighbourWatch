@@ -1,5 +1,7 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
-
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+# Agent Rules
+- Read node_modules/next/dist/docs/ before editing any Next.js files
+- Never use gemini-1.5-flash-8b — it is deprecated
+- API keys rotate via GEMINI_API_KEY_1 through _4, never hardcode one
+- All Gemini calls must go through src/lib/gemini.ts — never call the SDK directly
+- Severity/routing/classification logic lives in src/lib/localAgents.ts — don't move it to AI
+- Run npm run lint before declaring any task done
